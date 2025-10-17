@@ -1,10 +1,10 @@
-<%- include('partials/header.ejs') %>
+<%- include('../../partials/header.ejs') %>
 
 <div class="main-panel">
   <div class="content-wrapper pb-0">
     <div class="page-header flex-wrap">
       <h3 class="mb-0">
-        Hi <%= (user && (user.username || user.name)) ? (user.username || user.name) : 'Guest' %>, welcome back!
+        Hi <%= (user && (user.username || user.name)) ? (user.username || user.name) : 'Guest' %>, welcome to your recipes!
         <span class="ps-0 h6 ps-sm-2 text-muted d-inline-block">Your web recipe book!</span>
       </h3>
       <div class="d-flex">
@@ -42,8 +42,9 @@
 
               <!-- Footer -->
               <div class="card-footer bg-light d-flex justify-content-between align-items-center">
-                <small class="text-muted">By <%= recipe.author ? (recipe.author.username || recipe.author.name || 'Unknown') : 'Unknown' %></small>
+                <small class="text-muted">By You!</small>
                 <a href="/recipe/<%= recipe._id %>" class="btn btn-outline-primary btn-sm">View</a>
+                <a href="/recipe/delete/<%= recipe._id %>" class="btn btn-outline-danger btn-sm">Delete</a>
               </div>
             </div>
           </div>
@@ -58,7 +59,7 @@
   </div>
 </div>
 
-<%- include('partials/footer.ejs') %>
+<%- include('../../partials/footer.ejs') %>
 
 <style>
   .recipe-card {

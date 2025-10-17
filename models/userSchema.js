@@ -11,25 +11,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
+    },
     password: {
         type: String,
         required: true,
-    },
-    role:{
-        type: String,
-        enum: ['manager', 'admin' , 'employee'],
-        default: 'employee',
-        required: true
-    },
-    department: {
-        type: String,
-    },
-    tasks: {
-        type: [String],
-        default: []
-    },
-    salary: {
-        type: Number,
     }
 }, {
     timestamps: true,

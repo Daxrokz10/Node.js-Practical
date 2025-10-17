@@ -23,18 +23,23 @@ const port = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
-  const token = req.cookies.token;
-  if (token) {
+  (async () => {
+    const token = req.cookies.token;
+    if (!token) {
+      res.locals.user = null;
+      return next();
+    }
     try {
       const decoded = jwt.verify(token, process.env.SESSION_SECRET);
-      res.locals.user = decoded;
+      // lazy-load user to get role and latest data
+      const User = require('./models/userSchema');
+      const userRecord = await User.findById(decoded.id).lean();
+      res.locals.user = userRecord || decoded;
     } catch (err) {
       res.locals.user = null;
     }
-  } else {
-    res.locals.user = null;
-  }
-  next();
+    return next();
+  })();
 });
 app.use('/',require('./routers'));
 

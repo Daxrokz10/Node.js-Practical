@@ -40,7 +40,7 @@
               <!--change to offline or busy as needed-->
             </div>
             <div class="nav-profile-text d-flex flex-column pe-3">
-              <span class="font-weight-medium mb-2">User</span>
+              <span class="font-weight-medium mb-2"><%= (user && (user.username || user.name)) ? (user.username || user.name) : 'Guest' %></span>
               <span class="font-weight-normal">$8,753.00</span>
             </div>
             <span class="badge badge-danger text-white ms-3 rounded">3</span>
@@ -49,30 +49,37 @@
         <li class="nav-item">
           <a class="nav-link" href="/">
             <i class="mdi mdi-home menu-icon"></i>
-            <span class="menu-title">Dashboard</span>
+            <span class="menu-title">Recipies Book</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/tasks">
-            <i class="mdi mdi-home menu-icon"></i>
-            <span class="menu-title">Tasks</span>
-          </a>
-        </li>
-        <% if (user && (user.role==='admin' || user.role==='manager' )) { %>
+            <a class="nav-link" data-bs-toggle="collapse" href="#forms1" aria-expanded="false" aria-controls="forms1">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">Recipes</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="forms1">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/recipe/user">View Your Recipes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/recipe/add">Add New Recipes</a></li>
+              </ul>
+            </div>
+          </li>
           <li class="nav-item">
+            <% if (user && user.role === "admin") { %>
             <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
               <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-              <span class="menu-title">Manage Employees</span>
+              <span class="menu-title">Manage</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="forms">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="/manage/addEmployee">Add new Employee</a></li>
-                <li class="nav-item"><a class="nav-link" href="/manage">Manage Employee</a></li>
+                <li class="nav-item"><a class="nav-link" href="/manage/users">Manage Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="/manage/recipes">Manage Recipes</a></li>
               </ul>
             </div>
+            <% } %>
           </li>
-          <% } %>
       </ul>
     </nav>
     <!-- partial -->
@@ -183,11 +190,9 @@
             <li class="nav-item  nav-profile dropdown border-0">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown">
                 <img class="nav-profile-img me-2" alt="" src="/images/faces/face1.jpg">
-                <span class="profile-name">User</span>
+                <span class="profile-name"><%= (user && (user.username || user.name)) ? (user.username || user.name) : 'Guest' %></span>
               </a>
               <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <a class="dropdown-item" href="/auth/logout">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
